@@ -4,7 +4,7 @@ project(calculator VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
-include_directories("../../include")
+include_directories("include")
 add_executable(calculator main.cpp)
 
 target_precompile_headers(${PROJECT_NAME}
