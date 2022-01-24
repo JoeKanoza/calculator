@@ -14,13 +14,13 @@ int main(int, char**) {
             Token t = ts.get();
             while(t.kind == ';') t=ts.get();        // eat ';'
             if(t.kind == 'q') {
-                keep_window_open();
+                // keep_window_open();
                 return 0;
             }
             ts.putback(t);
             cout<<"= "<<expression()<<'\n';
         }
-        keep_window_open();
+        // keep_window_open();
         return 0;
     }
     catch(const std::exception& e)

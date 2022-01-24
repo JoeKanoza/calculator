@@ -61,7 +61,7 @@ Token Token_stream::get()
         case ';':
         case 'q':
         case '(': case ')': case '+': case '-': case '*': case '/':
-		case '{': case '}': case '!':
+		case '{': case '}': case '!': case '%':
             return Token{ch};
         case '.':
         case '0': case '1': case '2': case '3': case '4': case '5':
@@ -128,6 +128,10 @@ double primary()
 				return d;		// return the number's value
 			}
 		}
+	case '-':
+		return - primary();
+	case '+':
+		return primary();
 
 	default:
 		error("primary expected");
@@ -159,6 +163,15 @@ double term()
 					if(d == 0) error("divide by zero");
 					left /= d;
 					t = ts.get();
+					break;
+				}
+
+			case '%':
+				{
+					double d = primary();
+					if(d ==0) error("\% divided by zero");
+					left = fmod(left, d);
+					t=ts.get();
 					break;
 				}
 			default:
