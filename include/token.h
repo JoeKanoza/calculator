@@ -21,6 +21,13 @@
 double primary();
 double term();
 double expression();
+void calculate();
+
+const char number = '8';
+const char quit = 'q';
+const char print = ';';
+const string prompt = "> ";
+const string result = "= ";
 
 
 // user-defined type to handle tokens
@@ -58,10 +65,18 @@ Token Token_stream::get()
     char ch;
     cin>>ch;
     switch(ch){
-        case ';':
-        case 'q':
-        case '(': case ')': case '+': case '-': case '*': case '/':
-		case '{': case '}': case '!': case '%':
+        case print:
+        case quit:
+        case '(':
+		case ')':
+		case '+':
+		case '-':
+		case '*':
+		case '/':
+		case '{':
+		case '}':
+		case '!':
+		case '%':
             return Token{ch};
         case '.':
         case '0': case '1': case '2': case '3': case '4': case '5':
@@ -70,7 +85,7 @@ Token Token_stream::get()
             cin.putback(ch);
             double val;
             cin>>val;
-            return Token{'8',val};
+            return Token{number,val};
         }
         default:
             error("Bad token");
@@ -107,7 +122,7 @@ double primary()
 			if(t.kind != ')') error("')' expected");
 			return d;
 		}
-	case '8':		// we use '8' to represent a number
+	case number:		// we use '8' to represent a number
 		{
 			double d = t.value;
 			t = ts.get();
@@ -169,7 +184,7 @@ double term()
 			case '%':
 				{
 					double d = primary();
-					if(d ==0) error("\% divided by zero");
+					if(d ==0) error("% divided by zero");
 					left = fmod(left, d);
 					t=ts.get();
 					break;
@@ -207,3 +222,18 @@ double expression()
 	}
 }
 
+void calculate()
+{
+	while(cin)
+	{
+		cout << prompt;
+		Token t = ts.get();
+		while(t.kind == print) t=ts.get();        // eat ';'
+		if(t.kind == quit) {
+			// keep_window_open();
+			return;
+		}
+		ts.putback(t);
+		cout<<result<<expression()<<'\n';
+	}
+}

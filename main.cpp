@@ -7,19 +7,7 @@
 int main(int, char**) {
     try
     {
-        double val = 0;
-        while(cin)
-        {
-            cout << "> ";
-            Token t = ts.get();
-            while(t.kind == ';') t=ts.get();        // eat ';'
-            if(t.kind == 'q') {
-                // keep_window_open();
-                return 0;
-            }
-            ts.putback(t);
-            cout<<"= "<<expression()<<'\n';
-        }
+        calculate();
         // keep_window_open();
         return 0;
     }
