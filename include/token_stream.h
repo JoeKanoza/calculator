@@ -18,6 +18,10 @@
 
 #pragma once
 
+const char name = 'a';			// name token
+const char let = 'L';			// declaration token
+const string declkey = "let";	// declaration keyword
+
 class Token_stream {
 	public:
 		Token_stream();
@@ -57,6 +61,7 @@ Token Token_stream::get()
 		case '}':
 		case '!':
 		case '%':
+		case '=':
             return Token{ch};
         case '.':
         case '0': case '1': case '2': case '3': case '4': case '5':
@@ -68,7 +73,15 @@ Token Token_stream::get()
             return Token{number,val};
         }
         default:
-            error("Bad token");
+			if(isalpha(ch))
+			{
+				cin.putback(ch);
+				string s;
+				cin>>s;
+				if(s == declkey) return Token(let); 	//declaration keyword
+				return Token{name,s};
+			}
+        error("Bad token");
     }
 }
 

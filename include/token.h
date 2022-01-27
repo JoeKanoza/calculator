@@ -36,6 +36,9 @@ class Token {
 	public:
 		char kind; 	//what kind of token
 		double value;	//for numbers: a value
+		string name;
+		Token(): kind{0}{}
 		Token(char k) :kind{k}, value{0.0} {}	// construct from one value
 		Token(char k, double v) :kind{k}, value{v} {}	// construct from two values
+		Token(char k, string n) :kind{k}, name{n} {} 	// initialize kind and name
 };

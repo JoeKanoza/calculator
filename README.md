@@ -6,40 +6,40 @@ Calculator started on Chapter 6.
 ## Program Grammar ##
 
 - Calculation:
-    - Statement
-    - Print
-    - Quit
-    - Calculation Statement
+  - Statement
+  - Print
+  - Quit
+  - Calculation Statement
 
 - Statement:
-    - Declaration
-    - Expression
+  - Declaration
+  - Expression
 
 - Declaration:
-    - "let" Name "=" Expression
+  - "let" Name "=" Expression
 
 - Print:
-    - ;
+  - ;
 
 - Quit:
-    - q
+  - q
 
 - Expression:
-    - Term
-    - Expression + Term
-    - Expression - Term
+  - Term
+  - Expression + Term
+  - Expression - Term
 
 - Term:
-    - Primary
-    - Term * Primary
-    - Term / Primary
-    - Term % Primary
+  - Primary
+  - Term * Primary
+  - Term / Primary
+  - Term % Primary
 
 - Primary:
-    - Number
-    - ( Expression )
-    - "-" Primary
-    - "+" Primary
+  - Number
+  - ( Expression )
+  - "-" Primary
+  - "+" Primary
 
 - Number
-    - floating-point-literal
+  - floating-point-literal

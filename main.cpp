@@ -1,29 +1,35 @@
 #include "token.h"
 #include "token_stream.h"
+#include "Variable.h"
+
+double get_value(string s);
+double statement();
+double declaration();
 
 // Token getToken();
+
 
 Token_stream ts = {};
 
 int main(int, char**) {
-    try
-    {
-        calculate();
-        // keep_window_open();
-        return 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr <<"runtime error: "<< e.what() << '\n';
-        keep_window_open("~~");
-        return 1;
-    }
-    catch(...)
-    {
-        cerr<<"exception \n";
-        keep_window_open("~~");
-        return 2;
-    }
+	try
+	{
+		calculate();
+		// keep_window_open();
+		return 0;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr <<"runtime error: "<< e.what() << '\n';
+		keep_window_open("~~");
+		return 1;
+	}
+	catch(...)
+	{
+		cerr<<"exception \n";
+		keep_window_open("~~");
+		return 2;
+	}
 }
 
 double primary()
@@ -70,6 +76,8 @@ double primary()
 		return - primary();
 	case '+':
 		return primary();
+	case name:
+		return get_value(t.name);
 
 	default:
 		error("primary expected");
@@ -158,7 +166,7 @@ void calculate()
 				return;
 			}
 			ts.putback(t);
-			cout<<result<<expression()<<'\n';
+			cout<<result<<statement()<<'\n';
 		}
 		catch(exception& e)
 		{
@@ -172,3 +180,33 @@ void clean_up_mess()
 	ts.ignore(print);
 }
 
+double statement()
+{
+	Token t = ts.get();
+	switch(t.kind)
+	{
+		case let:
+			return declaration();
+
+		default:
+			ts.putback(t);
+			return expression();
+	}
+}
+
+double declaration()
+// assume we have seen "let"
+// handle: name = expression
+// declare a variable  called "name" with the initial value "expression"
+{
+	Token t = ts.get();
+	if(t.kind != name) error("name expected in declaration");
+	string var_name = t.name;
+
+	Token t2 = ts.get();
+	if(t2.kind != '=') error("= missing in declaration of ", var_name);
+
+	double d = expression();
+	define_name(var_name, d);
+	return d;
+}
