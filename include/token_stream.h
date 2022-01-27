@@ -84,6 +84,7 @@ Token Token_stream::get()
 			}
         error("Bad token");
     }
+	return 0;
 }
 
 void Token_stream::putback(Token t)

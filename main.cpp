@@ -86,6 +86,7 @@ double primary()
 	default:
 		error("primary expected");
 	}
+	return 0;
 }
 
 // double factorial()
