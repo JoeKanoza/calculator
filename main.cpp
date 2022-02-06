@@ -55,6 +55,15 @@ double primary()
 			if(t.kind != ')') error("')' expected");
 			return d;
 		}
+	case sqrt_char:
+		{
+			t = ts.get();
+			if(t.kind != '(') error("'(' expected");
+			double d = expression();
+			t = ts.get();
+			if(t.kind != ')') error("')' expected");
+			return sqrt(d);
+		}
 	case number:		// we use '8' to represent a number
 		{
 			double d = t.value;
@@ -192,7 +201,7 @@ double statement()
 	{
 		case let:
 			return declaration();
-
+	
 		default:
 			ts.putback(t);
 			return expression();

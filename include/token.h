@@ -24,11 +24,16 @@ double expression();
 void calculate();
 void clean_up_mess();
 
+const char name = 'a';			// name token
+const char let = 'L';			// declaration token
+const char sqrt_char = 'S';
 const char number = '8';
 const char quit = 'q';
 const char print = ';';
 const string prompt = "> ";
 const string result = "= ";
+const string declkey = "let";	// declaration keyword
+const string sqrtkey = "sqrt";
 
 
 // user-defined type to handle tokens

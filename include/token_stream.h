@@ -18,9 +18,6 @@
 
 #pragma once
 
-const char name = 'a';			// name token
-const char let = 'L';			// declaration token
-const string declkey = "let";	// declaration keyword
 
 class Token_stream {
 	public:
@@ -80,6 +77,7 @@ Token Token_stream::get()
 				while(cin.get(ch)&& (isalpha(ch)||isdigit(ch))) s+=ch;
 				cin.putback(ch);
 				if(s == declkey) return Token(let); 	//declaration keyword
+				if(s == sqrtkey) return Token(sqrt_char);
 				return Token{name,s};
 			}
         error("Bad token");
